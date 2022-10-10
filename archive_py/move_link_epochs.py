@@ -43,6 +43,10 @@ def main():
         confirm_continuation()
 
         source = input_folder / f"Epoch_{epoch}"
+        if not is_movable(source):
+            print("Not movable. Will stop here.")
+            break
+
         destination = output_folder / f"Epoch_{epoch}"
         shutil.move(str(source), destination)
         os.symlink(destination, source)
@@ -53,10 +57,14 @@ def find_first_movable_epoch(folder: Path) -> int:
 
     while True:
         epoch_folder = folder / f"Epoch_{epoch}"
-        if epoch_folder.is_dir() and not epoch_folder.is_symlink():
+        if is_movable(epoch_folder):
             return epoch
 
         epoch += 1
+
+
+def is_movable(folder: Path) -> bool:
+    return folder.is_dir() and not folder.is_symlink()
 
 
 if __name__ == "__main__":
