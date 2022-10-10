@@ -40,7 +40,6 @@ def main():
 
     for epoch in epochs_to_move:
         print("Moving epoch", epoch)
-        confirm_continuation()
 
         source = input_folder / f"Epoch_{epoch}"
         if not is_movable(source):
