@@ -45,3 +45,9 @@ PYTHONPATH=. python3 ./archive_py/download.py --folder=~/db-downloads --url=${UR
 ```
 PYTHONPATH=. python3 ./archive_py/extract.py --input-folder=~/db-downloads --output-folder=~/db-extracted
 ```
+
+## Move & symlink epoch folders
+
+```
+PYTHONPATH=. python3 ./archive_py/move_link_epochs.py --input-folder=~/db/T --output-folder=~/place/db/T
+```
