@@ -7,7 +7,8 @@ from typing import Any, List
 from boto3.s3.transfer import TransferConfig
 from boto3.session import Session
 
-from archive_py.constants import ONE_GB, ONE_MB
+from archive_py.args import parse_epochs_arg
+from archive_py.constants import HELP_STRING_EPOCHS, ONE_GB, ONE_MB
 from archive_py.io import list_archives
 from archive_py.ux import confirm_continuation
 
@@ -22,6 +23,8 @@ def main():
     parser.add_argument("--access-key", required=True, help="The access key. This is NOT the secret key.")
     parser.add_argument("--bucket", required=True, help="For Digital Ocean, it's the space name.")
     parser.add_argument("--prefix", required=True, help="E.g. foo/bar")
+    parser.add_argument("--epochs", required=False, help=HELP_STRING_EPOCHS)
+    parser.add_argument("--include-static", action="store_true", default=False)
     args = parser.parse_args()
 
     folder = Path(args.folder).expanduser()
@@ -30,8 +33,17 @@ def main():
     access_key = args.access_key
     bucket = args.bucket
     prefix = args.prefix
+    with_specified_archives = args.epochs or args.include_static
+    specified_epochs = parse_epochs_arg(args.epochs)
+    specified_static = args.include_static
+    print("Specified epochs to upload:", specified_epochs)
+    print("Specified to include 'Static':", specified_static)
 
-    archives: List[Path] = list_archives(folder)
+    if with_specified_archives:
+        archives: List[Path] = [folder / f"Epoch_{epoch}.tar" for epoch in specified_epochs]
+        archives.extend([folder / "Static.tar"] if specified_static else [])
+    else:
+        archives: List[Path] = list_archives(folder)
 
     print("Folder:", folder)
     print("Endpoint:", endpoint)
