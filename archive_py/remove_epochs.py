@@ -22,10 +22,14 @@ def main():
     confirm_continuation()
 
     for epoch in epochs_to_remove:
-        print("Removing epoch", epoch)
+        print(f"Removing epoch {epoch}...")
 
         epoch_folder = folder / f"Epoch_{epoch}"
-        shutil.rmtree(str(epoch_folder))
+
+        try:
+            shutil.rmtree(str(epoch_folder))
+        except FileNotFoundError:
+            print(f"Epoch {epoch} does not exist.")
 
 
 if __name__ == "__main__":
