@@ -51,3 +51,9 @@ PYTHONPATH=. python3 ./archive_py/extract.py --input-folder=~/db-downloads --out
 ```
 PYTHONPATH=. python3 ./archive_py/move_link_epochs.py --input-folder=~/db/T --output-folder=~/place/db/T
 ```
+
+## Remove old epochs
+
+```
+PYTHONPATH=. python3 ./archive_py/remove_epochs.py --folder=~/db/T --epochs=0:1000
+```
