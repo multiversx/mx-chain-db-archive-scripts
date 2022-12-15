@@ -48,7 +48,7 @@ def main():
         tar.close()
 
     if include_static:
-        print("Archiving folder 'Static' (with and without dblookup extension)")
+        print("Archiving folder 'Static' (with and without dblookup extensions)")
 
         archive_file = output_folder / "Static.tar"
         archive_file_min = output_folder / "Static.min.tar"
