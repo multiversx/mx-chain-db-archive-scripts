@@ -23,7 +23,6 @@ def main():
 
     for epoch in epochs_to_remove:
         print(f"Removing epoch {epoch}...")
-
         epoch_folder = folder / f"Epoch_{epoch}"
 
         try:

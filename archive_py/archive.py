@@ -1,6 +1,7 @@
 import tarfile
 from argparse import ArgumentParser
 from pathlib import Path
+from typing import Optional
 
 from archive_py.args import parse_epochs_arg
 from archive_py.constants import HELP_STRING_DB, HELP_STRING_EPOCHS
@@ -47,16 +48,25 @@ def main():
         tar.close()
 
     if include_static:
-        print("Archiving folder 'Static'")
+        print("Archiving folder 'Static' (with and without dblookup extension)")
 
         archive_file = output_folder / "Static.tar"
+        archive_file_min = output_folder / "Static.min.tar"
         data_folder = input_folder / "Static"
 
         print("Archive:", archive_file)
+        print("Archive (min):", archive_file_min)
         print("Data folder:", data_folder)
 
         tar = tarfile.open(archive_file, "w|")
         tar.add(data_folder, arcname="Static")
+        tar.close()
+
+        def min_filter(info: tarfile.TarInfo) -> Optional[tarfile.TarInfo]:
+            return None if "DbLookupExtensions" in info.name else info
+
+        tar = tarfile.open(archive_file_min, "w|")
+        tar.add(data_folder, arcname="Static", filter=min_filter)
         tar.close()
 
 
