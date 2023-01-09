@@ -1,4 +1,4 @@
-# db-archive-scripts
+# mx-chain-db-archive-scripts
 
 Scripts useful for managing incremental archives of Node's database.
 
