@@ -8,10 +8,6 @@ CHUNK_SIZE = 1024 * 64
 LINECLEAR = "\r" + " " * 20 + "\r"
 PROGRESS_RULER = "|_,_,_,_,_,,_,_,_,_,_|"
 
-"""
-Also see: https://github.com/ElrondNetwork/elrond-sdk-erdpy/blob/main/erdpy/downloader.py
-"""
-
 
 def download_file(url: str, filename: str) -> None:
     print("Downloading:", url)
