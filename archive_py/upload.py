@@ -41,7 +41,7 @@ def main():
 
     if with_specified_archives:
         archives: List[Path] = [folder / f"Epoch_{epoch}.tar" for epoch in specified_epochs]
-        archives.extend([folder / "Static.tar"] if specified_static else [])
+        archives.extend([folder / "Static.tar", folder / "Static.min.tar"] if specified_static else [])
     else:
         archives: List[Path] = list_archives(folder)
 
