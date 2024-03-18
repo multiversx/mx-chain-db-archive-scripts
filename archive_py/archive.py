@@ -36,7 +36,7 @@ def main():
     confirm_continuation()
 
     for epoch in epochs:
-        archive_file = output_folder / f"Epoch_{epoch}.tar"
+        archive_file = output_folder / f"Epoch_{epoch:05d}.tar"
         relative_path = Path(f"Epoch_{epoch}") / f"Shard_{shard}"
         data_folder = input_folder / relative_path
 
